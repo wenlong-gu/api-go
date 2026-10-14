@@ -134,8 +134,7 @@ type ActivityOptions struct {
 	// retries will be attempted. Either this or `start_to_close_timeout` must be specified.
 	//
 	// (-- api-linter: core::0140::prepositions=disabled
-	//
-	//	aip.dev/not-precedent: "to" is used to indicate interval. --)
+	//     aip.dev/not-precedent: "to" is used to indicate interval. --)
 	ScheduleToCloseTimeout *durationpb.Duration `protobuf:"bytes,2,opt,name=schedule_to_close_timeout,json=scheduleToCloseTimeout,proto3" json:"schedule_to_close_timeout,omitempty"`
 	// Limits time an activity task can stay in a task queue before a worker picks it up. This
 	// timeout is always non retryable, as all a retry would achieve is to put it back into the same
@@ -143,16 +142,14 @@ type ActivityOptions struct {
 	// specified.
 	//
 	// (-- api-linter: core::0140::prepositions=disabled
-	//
-	//	aip.dev/not-precedent: "to" is used to indicate interval. --)
+	//     aip.dev/not-precedent: "to" is used to indicate interval. --)
 	ScheduleToStartTimeout *durationpb.Duration `protobuf:"bytes,3,opt,name=schedule_to_start_timeout,json=scheduleToStartTimeout,proto3" json:"schedule_to_start_timeout,omitempty"`
 	// Maximum time an activity is allowed to execute after being picked up by a worker. This
 	// timeout is always retryable. Either this or `schedule_to_close_timeout` must be
 	// specified.
 	//
 	// (-- api-linter: core::0140::prepositions=disabled
-	//
-	//	aip.dev/not-precedent: "to" is used to indicate interval. --)
+	//     aip.dev/not-precedent: "to" is used to indicate interval. --)
 	StartToCloseTimeout *durationpb.Duration `protobuf:"bytes,4,opt,name=start_to_close_timeout,json=startToCloseTimeout,proto3" json:"start_to_close_timeout,omitempty"`
 	// Maximum permitted time between successful worker heartbeats.
 	HeartbeatTimeout *durationpb.Duration `protobuf:"bytes,5,opt,name=heartbeat_timeout,json=heartbeatTimeout,proto3" json:"heartbeat_timeout,omitempty"`
@@ -272,23 +269,20 @@ type ActivityExecutionInfo struct {
 	// retries will be attempted.
 	//
 	// (-- api-linter: core::0140::prepositions=disabled
-	//
-	//	aip.dev/not-precedent: "to" is used to indicate interval. --)
+	//     aip.dev/not-precedent: "to" is used to indicate interval. --)
 	ScheduleToCloseTimeout *durationpb.Duration `protobuf:"bytes,7,opt,name=schedule_to_close_timeout,json=scheduleToCloseTimeout,proto3" json:"schedule_to_close_timeout,omitempty"`
 	// Limits time an activity task can stay in a task queue before a worker picks it up. This
 	// timeout is always non retryable, as all a retry would achieve is to put it back into the same
 	// queue. Defaults to `schedule_to_close_timeout`.
 	//
 	// (-- api-linter: core::0140::prepositions=disabled
-	//
-	//	aip.dev/not-precedent: "to" is used to indicate interval. --)
+	//     aip.dev/not-precedent: "to" is used to indicate interval. --)
 	ScheduleToStartTimeout *durationpb.Duration `protobuf:"bytes,8,opt,name=schedule_to_start_timeout,json=scheduleToStartTimeout,proto3" json:"schedule_to_start_timeout,omitempty"`
 	// Maximum time a single activity attempt is allowed to execute after being picked up by a worker. This
 	// timeout is always retryable.
 	//
 	// (-- api-linter: core::0140::prepositions=disabled
-	//
-	//	aip.dev/not-precedent: "to" is used to indicate interval. --)
+	//     aip.dev/not-precedent: "to" is used to indicate interval. --)
 	StartToCloseTimeout *durationpb.Duration `protobuf:"bytes,9,opt,name=start_to_close_timeout,json=startToCloseTimeout,proto3" json:"start_to_close_timeout,omitempty"`
 	// Maximum permitted time between successful worker heartbeats.
 	HeartbeatTimeout *durationpb.Duration `protobuf:"bytes,10,opt,name=heartbeat_timeout,json=heartbeatTimeout,proto3" json:"heartbeat_timeout,omitempty"`
@@ -366,17 +360,15 @@ type ActivityExecutionInfo struct {
 	// Authenticated principal by which this activity execution was started.
 	//
 	// (-- api-linter: core::0140::prepositions=disabled
-	//
-	//	aip.dev/not-precedent: "by" identifies the authenticated actor. --)
-	StartedByPrincipal *v11.Principal `protobuf:"bytes,41,opt,name=started_by_principal,json=startedByPrincipal,proto3" json:"started_by_principal,omitempty"`
+	//     aip.dev/not-precedent: "by" identifies the authenticated actor. --)
+	StartedByPrincipal *v11.ResolvedPrincipal `protobuf:"bytes,41,opt,name=started_by_principal,json=startedByPrincipal,proto3" json:"started_by_principal,omitempty"`
 	// Authenticated principal by which this activity execution was closed.
 	//
 	// (-- api-linter: core::0140::prepositions=disabled
-	//
-	//	aip.dev/not-precedent: "by" identifies the authenticated actor. --)
-	ClosedByPrincipal *v11.Principal `protobuf:"bytes,42,opt,name=closed_by_principal,json=closedByPrincipal,proto3" json:"closed_by_principal,omitempty"`
+	//     aip.dev/not-precedent: "by" identifies the authenticated actor. --)
+	ClosedByPrincipal *v11.ResolvedPrincipal `protobuf:"bytes,42,opt,name=closed_by_principal,json=closedByPrincipal,proto3" json:"closed_by_principal,omitempty"`
 	// Authenticated principal of the worker that most recently interacted with this activity execution.
-	LastWorkerPrincipal *v11.Principal `protobuf:"bytes,43,opt,name=last_worker_principal,json=lastWorkerPrincipal,proto3" json:"last_worker_principal,omitempty"`
+	LastWorkerPrincipal *v11.ResolvedPrincipal `protobuf:"bytes,43,opt,name=last_worker_principal,json=lastWorkerPrincipal,proto3" json:"last_worker_principal,omitempty"`
 	unknownFields       protoimpl.UnknownFields
 	sizeCache           protoimpl.SizeCache
 }
@@ -691,21 +683,21 @@ func (x *ActivityExecutionInfo) GetEagerExecutionAccepted() bool {
 	return false
 }
 
-func (x *ActivityExecutionInfo) GetStartedByPrincipal() *v11.Principal {
+func (x *ActivityExecutionInfo) GetStartedByPrincipal() *v11.ResolvedPrincipal {
 	if x != nil {
 		return x.StartedByPrincipal
 	}
 	return nil
 }
 
-func (x *ActivityExecutionInfo) GetClosedByPrincipal() *v11.Principal {
+func (x *ActivityExecutionInfo) GetClosedByPrincipal() *v11.ResolvedPrincipal {
 	if x != nil {
 		return x.ClosedByPrincipal
 	}
 	return nil
 }
 
-func (x *ActivityExecutionInfo) GetLastWorkerPrincipal() *v11.Principal {
+func (x *ActivityExecutionInfo) GetLastWorkerPrincipal() *v11.ResolvedPrincipal {
 	if x != nil {
 		return x.LastWorkerPrincipal
 	}
@@ -1041,7 +1033,7 @@ const file_temporal_api_activity_v1_message_proto_rawDesc = "" +
 	"\fretry_policy\x18\x06 \x01(\v2#.temporal.api.common.v1.RetryPolicyR\vretryPolicy\x12<\n" +
 	"\bpriority\x18\a \x01(\v2 .temporal.api.common.v1.PriorityR\bpriority\x12:\n" +
 	"\vstart_delay\x18\b \x01(\v2\x19.google.protobuf.DurationR\n" +
-	"startDelay\"\xcd\x16\n" +
+	"startDelay\"\xe5\x16\n" +
 	"\x15ActivityExecutionInfo\x12\x1f\n" +
 	"\vactivity_id\x18\x01 \x01(\tR\n" +
 	"activityId\x12\x15\n" +
@@ -1088,10 +1080,10 @@ const file_temporal_api_activity_v1_message_proto_rawDesc = "" +
 	"startDelay\x12A\n" +
 	"\x0eexecution_time\x18& \x01(\v2\x1a.google.protobuf.TimestampR\rexecutionTime\x12\x8a\x01\n" +
 	"&propagated_nexus_serialization_context\x18' \x01(\v25.temporal.api.nexus.v1.PropagatedSerializationContextR#propagatedNexusSerializationContext\x128\n" +
-	"\x18eager_execution_accepted\x18( \x01(\bR\x16eagerExecutionAccepted\x12S\n" +
-	"\x14started_by_principal\x18) \x01(\v2!.temporal.api.common.v1.PrincipalR\x12startedByPrincipal\x12Q\n" +
-	"\x13closed_by_principal\x18* \x01(\v2!.temporal.api.common.v1.PrincipalR\x11closedByPrincipal\x12U\n" +
-	"\x15last_worker_principal\x18+ \x01(\v2!.temporal.api.common.v1.PrincipalR\x13lastWorkerPrincipal\"\xc5\x05\n" +
+	"\x18eager_execution_accepted\x18( \x01(\bR\x16eagerExecutionAccepted\x12[\n" +
+	"\x14started_by_principal\x18) \x01(\v2).temporal.api.common.v1.ResolvedPrincipalR\x12startedByPrincipal\x12Y\n" +
+	"\x13closed_by_principal\x18* \x01(\v2).temporal.api.common.v1.ResolvedPrincipalR\x11closedByPrincipal\x12]\n" +
+	"\x15last_worker_principal\x18+ \x01(\v2).temporal.api.common.v1.ResolvedPrincipalR\x13lastWorkerPrincipal\"\xc5\x05\n" +
 	"\x19ActivityExecutionListInfo\x12\x1f\n" +
 	"\vactivity_id\x18\x01 \x01(\tR\n" +
 	"activityId\x12\x15\n" +
@@ -1156,7 +1148,7 @@ var file_temporal_api_activity_v1_message_proto_goTypes = []any{
 	(*v15.UserMetadata)(nil),                   // 21: temporal.api.sdk.v1.UserMetadata
 	(*v11.Link)(nil),                           // 22: temporal.api.common.v1.Link
 	(*v16.PropagatedSerializationContext)(nil), // 23: temporal.api.nexus.v1.PropagatedSerializationContext
-	(*v11.Principal)(nil),                      // 24: temporal.api.common.v1.Principal
+	(*v11.ResolvedPrincipal)(nil),              // 24: temporal.api.common.v1.ResolvedPrincipal
 	(*v17.CallbackInfo)(nil),                   // 25: temporal.api.callback.v1.CallbackInfo
 }
 var file_temporal_api_activity_v1_message_proto_depIdxs = []int32{
@@ -1199,9 +1191,9 @@ var file_temporal_api_activity_v1_message_proto_depIdxs = []int32{
 	11, // 36: temporal.api.activity.v1.ActivityExecutionInfo.start_delay:type_name -> google.protobuf.Duration
 	17, // 37: temporal.api.activity.v1.ActivityExecutionInfo.execution_time:type_name -> google.protobuf.Timestamp
 	23, // 38: temporal.api.activity.v1.ActivityExecutionInfo.propagated_nexus_serialization_context:type_name -> temporal.api.nexus.v1.PropagatedSerializationContext
-	24, // 39: temporal.api.activity.v1.ActivityExecutionInfo.started_by_principal:type_name -> temporal.api.common.v1.Principal
-	24, // 40: temporal.api.activity.v1.ActivityExecutionInfo.closed_by_principal:type_name -> temporal.api.common.v1.Principal
-	24, // 41: temporal.api.activity.v1.ActivityExecutionInfo.last_worker_principal:type_name -> temporal.api.common.v1.Principal
+	24, // 39: temporal.api.activity.v1.ActivityExecutionInfo.started_by_principal:type_name -> temporal.api.common.v1.ResolvedPrincipal
+	24, // 40: temporal.api.activity.v1.ActivityExecutionInfo.closed_by_principal:type_name -> temporal.api.common.v1.ResolvedPrincipal
+	24, // 41: temporal.api.activity.v1.ActivityExecutionInfo.last_worker_principal:type_name -> temporal.api.common.v1.ResolvedPrincipal
 	14, // 42: temporal.api.activity.v1.ActivityExecutionListInfo.activity_type:type_name -> temporal.api.common.v1.ActivityType
 	17, // 43: temporal.api.activity.v1.ActivityExecutionListInfo.schedule_time:type_name -> google.protobuf.Timestamp
 	17, // 44: temporal.api.activity.v1.ActivityExecutionListInfo.close_time:type_name -> google.protobuf.Timestamp
