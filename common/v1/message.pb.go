@@ -7,16 +7,15 @@
 package common
 
 import (
-	reflect "reflect"
-	sync "sync"
-	unsafe "unsafe"
-
 	v1 "go.temporal.io/api/enums/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	durationpb "google.golang.org/protobuf/types/known/durationpb"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
 	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
+	reflect "reflect"
+	sync "sync"
+	unsafe "unsafe"
 )
 
 const (
@@ -1277,9 +1276,14 @@ type ResolvedPrincipal struct {
 	// Low-cardinality category of the principal (e.g., "jwt", "users").
 	Type string `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
 	// Identifier within that category (e.g., sub JWT claim, email address).
-	Name          string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	//
+	// (-- api-linter: core::0140::prepositions=disabled
+	//     aip.dev/not-precedent: Identifies the principal name snapshot used for this response. --)
+	// (-- api-linter: core::0142::time-field-type=disabled
+	//     aip.dev/not-precedent: This string is a principal name snapshot, not a timestamp. --)
+	NameAtWriteTime string `protobuf:"bytes,2,opt,name=name_at_write_time,json=nameAtWriteTime,proto3" json:"name_at_write_time,omitempty"`
+	unknownFields   protoimpl.UnknownFields
+	sizeCache       protoimpl.SizeCache
 }
 
 func (x *ResolvedPrincipal) Reset() {
@@ -1319,9 +1323,9 @@ func (x *ResolvedPrincipal) GetType() string {
 	return ""
 }
 
-func (x *ResolvedPrincipal) GetName() string {
+func (x *ResolvedPrincipal) GetNameAtWriteTime() string {
 	if x != nil {
-		return x.Name
+		return x.NameAtWriteTime
 	}
 	return ""
 }
@@ -2898,10 +2902,10 @@ const file_temporal_api_common_v1_message_proto_rawDesc = "" +
 	"\avariant\"3\n" +
 	"\tPrincipal\x12\x12\n" +
 	"\x04type\x18\x01 \x01(\tR\x04type\x12\x12\n" +
-	"\x04name\x18\x02 \x01(\tR\x04name\";\n" +
+	"\x04name\x18\x02 \x01(\tR\x04name\"T\n" +
 	"\x11ResolvedPrincipal\x12\x12\n" +
-	"\x04type\x18\x01 \x01(\tR\x04type\x12\x12\n" +
-	"\x04name\x18\x02 \x01(\tR\x04name\"y\n" +
+	"\x04type\x18\x01 \x01(\tR\x04type\x12+\n" +
+	"\x12name_at_write_time\x18\x02 \x01(\tR\x0fnameAtWriteTime\"y\n" +
 	"\bPriority\x12!\n" +
 	"\fpriority_key\x18\x01 \x01(\x05R\vpriorityKey\x12!\n" +
 	"\ffairness_key\x18\x02 \x01(\tR\vfairnessKey\x12'\n" +
